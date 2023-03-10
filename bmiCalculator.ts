@@ -1,5 +1,9 @@
 console.log(calculateBMI(110, 177));
 
+/* Using pre-ES& functions to try out this. It's way cleaner way to
+write code as these old style functions can  be left under the actual
+executing code. Might use this from now on.*/
+
 function calculateBMI(mass: number, height: number): String {
   /*Underweight (Severe thinness) 	< 16.0
 Underweight (Moderate thinness) 	16.0 – 16.9 
