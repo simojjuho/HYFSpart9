@@ -5,7 +5,7 @@ try {
   const [target, ...exercises] = parseArguments(process.argv);
   console.log(calculateExercises(exercises, target));
 } catch (error: unknown) {
-  let errorMessage = "Something bad happened.";
+  let errorMessage = "Something bad happened: ";
   if (error instanceof Error) {
     errorMessage += "Error: " + error.message;
   }
