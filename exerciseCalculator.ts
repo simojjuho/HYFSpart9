@@ -1,26 +1,26 @@
-import { ExerciseAssesment } from "./interfaces/ExerciseAssesment";
-import { parseArguments } from "./utilities/parseArguments";
+import { ExerciseAssesment } from './interfaces/ExerciseAssesment';
+import { parseArguments } from './utilities/parseArguments';
 
 try {
   const [target, ...exercises] = parseArguments(process.argv);
   console.log(calculateExercises(exercises, target));
 } catch (error: unknown) {
-  let errorMessage = "Something bad happened: ";
+  let errorMessage = 'Something bad happened: ';
   if (error instanceof Error) {
-    errorMessage += "Error: " + error.message;
+    errorMessage += 'Error: ' + error.message;
   }
   console.log(errorMessage);
 }
 
-function calculateExercises(
+export function calculateExercises(
   period: number[],
   target: number
 ): ExerciseAssesment {
-  const ratingDescriptions: String[] = [
-    "You should have done better",
-    "Not bad but not quite",
-    "Well done, keep up the good pace!",
-    "Super! Don't work out too much, though!",
+  const ratingDescriptions: string[] = [
+    'You should have done better',
+    'Not bad but not quite',
+    'Well done, keep up the good pace!',
+    'Super! Don\'t work out too much, though!',
   ];
 
   const periodLength: number = period.length;
