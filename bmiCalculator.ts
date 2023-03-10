@@ -1,9 +1,19 @@
-console.log(calculateBMI(110, 177));
+import { parseArguments } from "./utilities/parseArguments";
 
-/* Using pre-ES& functions to try out this. It's way cleaner way to
+try {
+  const [mass, height] = parseArguments(process.argv);
+  console.log(calculateBMI(mass, height));
+} catch (error: unknown) {
+  let errorMessage = "Something bad happened: ";
+  if (error instanceof Error) {
+    errorMessage += "Error: " + error.message;
+  }
+  console.log(errorMessage);
+}
+
+/* Using pre-ES6 functions to try out this. It's way cleaner way to
 write code as these old style functions can  be left under the actual
 executing code. Might use this from now on.*/
-
 function calculateBMI(mass: number, height: number): String {
   /*Underweight (Severe thinness) 	< 16.0
 Underweight (Moderate thinness) 	16.0 – 16.9 
