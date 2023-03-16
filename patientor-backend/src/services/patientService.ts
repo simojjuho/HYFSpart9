@@ -40,3 +40,11 @@ export const addEntry = (entry: NewPatientEntry): PatientEntry => {
     patients = patients.concat(newEntry);
     return newEntry;
 };
+
+export const getEntry = (id: string): PatientEntry => {
+    const patientEntry = patientEntries.find(patient => patient.id === id);
+    if(!patientEntry) {
+        throw new Error(`Could not find a patient with such key: ${id}`);
+    }
+    return patientEntry;
+};
