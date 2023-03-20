@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { PatientEntry, NonsensitivePatientEntry, NewPatientEntry } from "../types";
+import { PatientEntry, NonsensitivePatientEntry, NewPatientEntry, EntryWithoutId } from "../types";
 import data from '../data/patients';
 import { v4 as uuid } from 'uuid';
 import { toNewPatientEntry } from "../utils";
@@ -32,7 +32,7 @@ export const getEntries = ():PatientEntry[] => {
     return patientEntries;
 };
 
-export const addEntry = (entry: NewPatientEntry): PatientEntry => {
+export const addPatientEntry = (entry: NewPatientEntry): PatientEntry => {
     const newEntry: PatientEntry = {
         ...entry,
         id: uuid()
@@ -41,10 +41,30 @@ export const addEntry = (entry: NewPatientEntry): PatientEntry => {
     return newEntry;
 };
 
+
 export const getEntry = (id: string): PatientEntry => {
-    const patientEntry = patientEntries.find(patient => patient.id === id);
+    const patientEntry = patients.find(patient => patient.id === id);
     if(!patientEntry) {
         throw new Error(`Could not find a patient with such key: ${id}`);
     }
+    return patientEntry;
+};
+
+export const addEntry = (id: string, newEntry: EntryWithoutId): PatientEntry => {
+    let patientEntry = patients.find(patient => patient.id === id);
+    if(!patientEntry) {
+        throw new Error(`Could not find a patient with such key: ${id}`);
+    }
+    const entryWithId = {
+        ...newEntry,
+        id: uuid()
+    };
+    patientEntry = {
+        ...patientEntry,
+        entries: patientEntry.entries.concat(entryWithId)
+    };
+    patients = patients.map(patient => {
+        return patient.id != id ? patient : patientEntry as PatientEntry;
+    });
     return patientEntry;
 };
