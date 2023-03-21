@@ -65,8 +65,11 @@ const parseDiagnosisCodes = (diagnosisCodes: unknown): Array<Diagnosis['code']> 
 };
 
 const parseHealthCheckRating = (rating: unknown): HealthCheckRating => {
-    if(typeof rating != 'number' || rating > 3 || rating < 0) {
+    if(typeof rating != 'number') {
         throw new Error('Incorrect or missing healthcheck rating value');
+    }
+    if(rating > 3 || rating < 0) {
+        throw new Error(`Healtch check rating must be from 0 to 3. Now it is ${rating}`);
     }
     return rating;
 };
@@ -173,16 +176,11 @@ export const toNewEntry = (object: unknown): EntryWithoutId => {
                     return parsedEntry;
                 default:
                     assertNever(object as never);
-            }
-
-
-           
+            }         
         }
-
-        throw new Error('Missing or incorrect values in new entry. Please check again.');
-
+        throw new Error('Missing or incorrect values in new entry. Please check again. KEY CHECK');
 
     }
-    throw new Error('Missing or incorrect values in new entry. Please check again.');
+    throw new Error('Missing or incorrect values in new entry. Please check again. OBJECT CHECK');
     
 };
