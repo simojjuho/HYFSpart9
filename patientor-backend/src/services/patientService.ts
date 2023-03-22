@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { PatientEntry, NonsensitivePatientEntry, NewPatientEntry, EntryWithoutId } from "../types";
+import { PatientEntry, NonsensitivePatientEntry, NewPatientEntry, EntryWithoutId, Entry } from "../types";
 import data from '../data/patients';
 import { v4 as uuid } from 'uuid';
 import { toNewPatientEntry } from "../utils";
@@ -50,7 +50,7 @@ export const getEntry = (id: string): PatientEntry => {
     return patientEntry;
 };
 
-export const addEntry = (id: string, newEntry: EntryWithoutId): PatientEntry => {
+export const addEntry = (id: string, newEntry: EntryWithoutId): Entry => {
     let patientEntry = patients.find(patient => patient.id === id);
     if(!patientEntry) {
         throw new Error(`Could not find a patient with such key: ${id}`);
@@ -66,5 +66,5 @@ export const addEntry = (id: string, newEntry: EntryWithoutId): PatientEntry => 
     patients = patients.map(patient => {
         return patient.id != id ? patient : patientEntry as PatientEntry;
     });
-    return patientEntry;
+    return entryWithId;
 };
